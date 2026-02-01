@@ -1,8 +1,10 @@
 import { motion } from 'motion/react';
 import { ArrowRight, Sparkles } from 'lucide-react';
+// 1. Import the hook
 import { useLanguage } from '@/app/context/LanguageContext';
 
 export function Hero() {
+  // 2. Get the translation tools
   const { t, language } = useLanguage();
   const isRTL = language === 'ar';
 
@@ -44,6 +46,7 @@ export function Hero() {
           className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full mb-8"
         >
           <Sparkles size={16} className="text-purple-400" />
+          {/* 3. Use t() for translations */}
           <span className="text-white/80 text-sm">{t('hero.badge')}</span>
         </motion.div>
 
@@ -78,6 +81,7 @@ export function Hero() {
         >
           <button className="group px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-semibold flex items-center gap-2 hover:shadow-2xl hover:shadow-purple-500/50 transition-all">
             {t('hero.startBtn')}
+            {/* Flip the arrow for Arabic */}
             <ArrowRight size={20} className={`group-hover:translate-x-1 transition-transform ${isRTL ? 'rotate-180' : ''}`} />
           </button>
           <button className="px-8 py-4 border border-white/20 rounded-full text-white font-semibold hover:bg-white/5 transition-colors">

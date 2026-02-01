@@ -32,6 +32,15 @@ export const translations = {
         reach: 'Reach',
       }
     },
+    // NEW MODAL TRANSLATIONS
+    modal: {
+      title: 'Let\'s Connect',
+      subtitle: 'Choose how you would like to reach us',
+      whatsapp: 'WhatsApp',
+      phone: 'Phone Call',
+      email: 'Send Email',
+      cancel: 'Close'
+    },
     footer: {
       brandDesc: 'Your bridge to influencer marketing success. Connecting brands with authentic voices.',
       quickLinks: 'Quick Links',
@@ -78,6 +87,15 @@ export const translations = {
         campaigns: 'حملة',
         reach: 'وصول',
       }
+    },
+    // NEW MODAL TRANSLATIONS (ARABIC)
+    modal: {
+      title: 'تواصل معنا',
+      subtitle: 'اختر الطريقة التي تفضلها',
+      whatsapp: 'واتساب',
+      phone: 'اتصال هاتفي',
+      email: 'بريد إلكتروني',
+      cancel: 'إغلاق'
     },
     footer: {
       brandDesc: 'جسر نجاحك في التسويق عبر المؤثرين. نربط العلامات التجارية بأصوات حقيقية.',

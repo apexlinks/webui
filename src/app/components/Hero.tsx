@@ -1,15 +1,18 @@
 import { motion } from 'motion/react';
 import { ArrowRight, Sparkles } from 'lucide-react';
-// 1. Import the hook
 import { useLanguage } from '@/app/context/LanguageContext';
 
 export function Hero() {
-  // 2. Get the translation tools
   const { t, language } = useLanguage();
   const isRTL = language === 'ar';
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-purple-900/20 to-black">
+    <section 
+      id="home" 
+      // Force LTR for English, RTL for Arabic to fix punctuation issues
+      dir={isRTL ? 'rtl' : 'ltr'}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-purple-900/20 to-black"
+    >
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         <motion.div
@@ -46,7 +49,6 @@ export function Hero() {
           className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full mb-8"
         >
           <Sparkles size={16} className="text-purple-400" />
-          {/* 3. Use t() for translations */}
           <span className="text-white/80 text-sm">{t('hero.badge')}</span>
         </motion.div>
 
@@ -54,12 +56,17 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="text-5xl md:text-7xl lg:text-8xl mb-6"
+          // CONDITIONAL SIZING: Smaller text for Arabic, Normal for English
+          className={`mb-6 font-bold ${
+            isRTL 
+              ? 'text-4xl md:text-6xl leading-relaxed tracking-wide' // Arabic: Smaller & Taller lines
+              : 'text-5xl md:text-7xl lg:text-8xl tracking-tight'    // English: Bigger & Tighter
+          }`}
         >
-          <span className="bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent block">
+          <span className="bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent block pb-2">
              {t('hero.titleLine1')}
           </span>
-          <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 bg-clip-text text-transparent block mt-2">
+          <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 bg-clip-text text-transparent block mt-2 pb-2">
              {t('hero.titleLine2')}
           </span>
         </motion.h1>
@@ -68,7 +75,9 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className={`text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-12 ${isRTL ? 'font-arabic' : ''}`}
+          className={`text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-12 ${
+            isRTL ? 'font-arabic leading-loose' : ''
+          }`}
         >
           {t('hero.description')}
         </motion.p>
@@ -81,7 +90,7 @@ export function Hero() {
         >
           <button className="group px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-semibold flex items-center gap-2 hover:shadow-2xl hover:shadow-purple-500/50 transition-all">
             {t('hero.startBtn')}
-            {/* Flip the arrow for Arabic */}
+            {/* Flip arrow direction for Arabic */}
             <ArrowRight size={20} className={`group-hover:translate-x-1 transition-transform ${isRTL ? 'rotate-180' : ''}`} />
           </button>
           <button className="px-8 py-4 border border-white/20 rounded-full text-white font-semibold hover:bg-white/5 transition-colors">

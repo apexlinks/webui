@@ -31,6 +31,31 @@ export const translations = {
         campaigns: 'Campaigns',
         reach: 'Reach',
       }
+    },
+    footer: {
+      brandDesc: 'Your bridge to influencer marketing success. Connecting brands with authentic voices.',
+      quickLinks: 'Quick Links',
+      services: 'Services',
+      contact: 'Get in Touch',
+      newsletter: {
+        title: 'Stay Updated',
+        desc: 'Subscribe to our newsletter for the latest trends in influencer marketing',
+        placeholder: 'Enter your email',
+        button: 'Subscribe'
+      },
+      rights: '© 2026 Apexlinks. All rights reserved.',
+      privacy: 'Privacy Policy',
+      terms: 'Terms of Service',
+      cookies: 'Cookie Policy',
+      scan: 'Scan to connect:'
+    },
+    serviceList: {
+      strategy: 'Campaign Strategy',
+      matching: 'Influencer Matching',
+      content: 'Content Creation',
+      analytics: 'Analytics & Reporting',
+      partnerships: 'Brand Partnerships',
+      social: 'Social Media Management'
     }
   },
   ar: {
@@ -53,6 +78,31 @@ export const translations = {
         campaigns: 'حملة',
         reach: 'وصول',
       }
+    },
+    footer: {
+      brandDesc: 'جسر نجاحك في التسويق عبر المؤثرين. نربط العلامات التجارية بأصوات حقيقية.',
+      quickLinks: 'روابط سريعة',
+      services: 'خدماتنا',
+      contact: 'تواصل معنا',
+      newsletter: {
+        title: 'ابق على اطلاع',
+        desc: 'اشترك في نشرتنا الإخبارية لمعرفة أحدث اتجاهات التسويق عبر المؤثرين',
+        placeholder: 'أدخل بريدك الإلكتروني',
+        button: 'اشترك'
+      },
+      rights: '© 2026 Apexlinks. جميع الحقوق محفوظة.',
+      privacy: 'سياسة الخصوصية',
+      terms: 'شروط الخدمة',
+      cookies: 'سياسة ملفات تعريف الارتباط',
+      scan: 'امسح للتواصل:'
+    },
+    serviceList: {
+      strategy: 'استراتيجية الحملات',
+      matching: 'مطابقة المؤثرين',
+      content: 'صناعة المحتوى',
+      analytics: 'التحليلات والتقارير',
+      partnerships: 'شراكات العلامات التجارية',
+      social: 'إدارة وسائل التواصل الاجتماعي'
     }
   }
 };
@@ -61,7 +111,6 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguage] = useState<Language>('en');
 
   useEffect(() => {
-    // Automatically flips the layout to RTL for Arabic
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = language;
   }, [language]);

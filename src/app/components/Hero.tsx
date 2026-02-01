@@ -1,15 +1,18 @@
 import { motion } from 'motion/react';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { useLanguage } from '@/app/context/LanguageContext';
+// IMPORT THE MODAL TRIGGER
+import { useContactModal } from '@/app/context/ContactModalContext';
 
 export function Hero() {
   const { t, language } = useLanguage();
+  // GET THE OPEN FUNCTION
+  const { openModal } = useContactModal();
   const isRTL = language === 'ar';
 
   return (
     <section 
       id="home" 
-      // Force LTR for English, RTL for Arabic to fix punctuation issues
       dir={isRTL ? 'rtl' : 'ltr'}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-purple-900/20 to-black"
     >
@@ -56,11 +59,10 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          // CONDITIONAL SIZING: Smaller text for Arabic, Normal for English
           className={`mb-6 font-bold ${
             isRTL 
-              ? 'text-4xl md:text-6xl leading-relaxed tracking-wide' // Arabic: Smaller & Taller lines
-              : 'text-5xl md:text-7xl lg:text-8xl tracking-tight'    // English: Bigger & Tighter
+              ? 'text-4xl md:text-6xl leading-relaxed tracking-wide' 
+              : 'text-5xl md:text-7xl lg:text-8xl tracking-tight'
           }`}
         >
           <span className="bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent block pb-2">
@@ -88,14 +90,22 @@ export function Hero() {
           transition={{ delay: 0.5 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
-          <button className="group px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-semibold flex items-center gap-2 hover:shadow-2xl hover:shadow-purple-500/50 transition-all">
+          {/* BUTTON TRIGGERS THE MODAL */}
+          <button 
+            onClick={openModal}
+            className="group px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-semibold flex items-center gap-2 hover:shadow-2xl hover:shadow-purple-500/50 transition-all cursor-pointer"
+          >
             {t('hero.startBtn')}
-            {/* Flip arrow direction for Arabic */}
             <ArrowRight size={20} className={`group-hover:translate-x-1 transition-transform ${isRTL ? 'rotate-180' : ''}`} />
           </button>
-          <button className="px-8 py-4 border border-white/20 rounded-full text-white font-semibold hover:bg-white/5 transition-colors">
+          
+          {/* EXPLORE BUTTON SCROLLS DOWN */}
+          <a 
+            href="#influencers"
+            className="px-8 py-4 border border-white/20 rounded-full text-white font-semibold hover:bg-white/5 transition-colors cursor-pointer"
+          >
             {t('hero.exploreBtn')}
-          </button>
+          </a>
         </motion.div>
 
         {/* Stats */}

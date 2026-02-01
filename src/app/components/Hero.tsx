@@ -1,10 +1,21 @@
 import { motion } from 'motion/react';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
+import { useLanguage } from '@/app/context/LanguageContext';
+// IMPORT THE MODAL TRIGGER
+import { useContactModal } from '@/app/context/ContactModalContext';
 
 export function Hero() {
+  const { t, language } = useLanguage();
+  // GET THE OPEN FUNCTION
+  const { openModal } = useContactModal();
+  const isRTL = language === 'ar';
+
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-purple-900/20 to-black">
+    <section 
+      id="home" 
+      dir={isRTL ? 'rtl' : 'ltr'}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-purple-900/20 to-black"
+    >
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         <motion.div
@@ -41,21 +52,24 @@ export function Hero() {
           className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full mb-8"
         >
           <Sparkles size={16} className="text-purple-400" />
-          <span className="text-white/80 text-sm">Connecting Brands with Influencers</span>
+          <span className="text-white/80 text-sm">{t('hero.badge')}</span>
         </motion.div>
 
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="text-5xl md:text-7xl lg:text-8xl mb-6"
+          className={`mb-6 font-bold ${
+            isRTL 
+              ? 'text-4xl md:text-6xl leading-relaxed tracking-wide' 
+              : 'text-5xl md:text-7xl lg:text-8xl tracking-tight'
+          }`}
         >
-          <span className="bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent">
-            Elevate your reach:
+          <span className="bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent block pb-2">
+             {t('hero.titleLine1')}
           </span>
-          <br />
-          <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 bg-clip-text text-transparent">
-            Apex links Bridges the Gap
+          <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 bg-clip-text text-transparent block mt-2 pb-2">
+             {t('hero.titleLine2')}
           </span>
         </motion.h1>
 
@@ -63,9 +77,11 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-12"
+          className={`text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-12 ${
+            isRTL ? 'font-arabic leading-loose' : ''
+          }`}
         >
-          We connect innovative brands with authentic influencers to create campaigns that resonate, engage, and drive real results.
+          {t('hero.description')}
         </motion.p>
 
         <motion.div
@@ -74,13 +90,22 @@ export function Hero() {
           transition={{ delay: 0.5 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
-          <button className="group px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-semibold flex items-center gap-2 hover:shadow-2xl hover:shadow-purple-500/50 transition-all">
-            Start Your Campaign
-            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+          {/* BUTTON TRIGGERS THE MODAL */}
+          <button 
+            onClick={openModal}
+            className="group px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-semibold flex items-center gap-2 hover:shadow-2xl hover:shadow-purple-500/50 transition-all cursor-pointer"
+          >
+            {t('hero.startBtn')}
+            <ArrowRight size={20} className={`group-hover:translate-x-1 transition-transform ${isRTL ? 'rotate-180' : ''}`} />
           </button>
-          <button className="px-8 py-4 border border-white/20 rounded-full text-white font-semibold hover:bg-white/5 transition-colors">
-            Explore Success Stories
-          </button>
+          
+          {/* EXPLORE BUTTON SCROLLS DOWN */}
+          <a 
+            href="#influencers"
+            className="px-8 py-4 border border-white/20 rounded-full text-white font-semibold hover:bg-white/5 transition-colors cursor-pointer"
+          >
+            {t('hero.exploreBtn')}
+          </a>
         </motion.div>
 
         {/* Stats */}
@@ -91,12 +116,12 @@ export function Hero() {
           className="grid grid-cols-3 gap-8 max-w-3xl mx-auto mt-20"
         >
           {[
-            { number: '500+', label: 'Influencers' },
-            { number: '1000+', label: 'Campaigns' },
-            { number: '50M+', label: 'Reach' },
+            { number: '500+', label: t('hero.stats.influencers') },
+            { number: '1000+', label: t('hero.stats.campaigns') },
+            { number: '50M+', label: t('hero.stats.reach') },
           ].map((stat, index) => (
             <motion.div
-              key={stat.label}
+              key={index}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.7 + index * 0.1 }}

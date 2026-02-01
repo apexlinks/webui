@@ -3,10 +3,14 @@ import { Menu, X, Globe } from 'lucide-react';
 import { useState } from 'react';
 import { Logo } from '@/app/components/Logo';
 import { useLanguage } from '@/app/context/LanguageContext';
+// IMPORT THE MODAL TRIGGER
+import { useContactModal } from '@/app/context/ContactModalContext';
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const { language, toggleLanguage, t } = useLanguage();
+  // GET THE OPEN FUNCTION
+  const { openModal } = useContactModal();
 
   const navItems = [
     { key: 'home', href: '#home' },
@@ -61,11 +65,13 @@ export function Navigation() {
               <span className="uppercase text-sm font-semibold">{language === 'en' ? 'العربية' : 'EN'}</span>
             </button>
 
+            {/* BUTTON TRIGGERS THE MODAL */}
             <motion.button
+              onClick={openModal}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4 }}
-              className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white hover:shadow-lg hover:shadow-purple-500/50 transition-shadow"
+              className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white hover:shadow-lg hover:shadow-purple-500/50 transition-shadow cursor-pointer"
             >
               {t('nav.getStarted')}
             </motion.button>
@@ -105,7 +111,14 @@ export function Navigation() {
                  {t(`nav.${item.key}`)}
               </a>
             ))}
-            <button className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white">
+            {/* MOBILE BUTTON TRIGGERS THE MODAL */}
+            <button 
+              onClick={() => {
+                setIsOpen(false);
+                openModal();
+              }}
+              className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white text-center"
+            >
               {t('nav.getStarted')}
             </button>
           </motion.div>

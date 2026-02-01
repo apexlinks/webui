@@ -1,48 +1,31 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
 import { Target, Users, TrendingUp, BarChart3, Zap, Shield } from 'lucide-react';
+import { useLanguage } from '@/app/context/LanguageContext';
 
-const services = [
-  {
-    icon: Target,
-    title: 'Campaign Strategy',
-    description: 'Data-driven strategies tailored to your brand goals and target audience.',
-    color: 'from-purple-500 to-pink-500',
-  },
-  {
-    icon: Users,
-    title: 'Influencer Matching',
-    description: 'Connect with the perfect influencers who align with your brand values.',
-    color: 'from-pink-500 to-rose-500',
-  },
-  {
-    icon: TrendingUp,
-    title: 'Growth Analytics',
-    description: 'Real-time insights and metrics to track your campaign performance.',
-    color: 'from-purple-600 to-blue-500',
-  },
-  {
-    icon: BarChart3,
-    title: 'ROI Optimization',
-    description: 'Maximize your return with our proven optimization strategies.',
-    color: 'from-blue-500 to-cyan-500',
-  },
-  {
-    icon: Zap,
-    title: 'Rapid Execution',
-    description: 'Launch campaigns quickly with our streamlined process and tools.',
-    color: 'from-orange-500 to-pink-500',
-  },
-  {
-    icon: Shield,
-    title: 'Brand Safety',
-    description: 'Protect your reputation with vetted influencers and compliance tools.',
-    color: 'from-emerald-500 to-teal-500',
-  },
-];
+const serviceIcons = {
+  strategy: Target,
+  matching: Users,
+  growth: TrendingUp,
+  roi: BarChart3,
+  rapid: Zap,
+  safety: Shield,
+};
+
+const serviceColors = {
+  strategy: 'from-purple-500 to-pink-500',
+  matching: 'from-pink-500 to-rose-500',
+  growth: 'from-purple-600 to-blue-500',
+  roi: 'from-blue-500 to-cyan-500',
+  rapid: 'from-orange-500 to-pink-500',
+  safety: 'from-emerald-500 to-teal-500',
+};
 
 export function Services() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { t, language } = useLanguage();
+  const isRTL = language === 'ar';
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
@@ -50,6 +33,16 @@ export function Services() {
 
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.8, 1, 1, 0.8]);
+
+  // Define services dynamically to use translations
+  const services = [
+    { key: 'strategy', icon: serviceIcons.strategy, color: serviceColors.strategy },
+    { key: 'matching', icon: serviceIcons.matching, color: serviceColors.matching },
+    { key: 'growth', icon: serviceIcons.growth, color: serviceColors.growth },
+    { key: 'roi', icon: serviceIcons.roi, color: serviceColors.roi },
+    { key: 'rapid', icon: serviceIcons.rapid, color: serviceColors.rapid },
+    { key: 'safety', icon: serviceIcons.safety, color: serviceColors.safety },
+  ];
 
   return (
     <section id="services" ref={containerRef} className="relative py-32 bg-black overflow-hidden">
@@ -74,20 +67,27 @@ export function Services() {
         >
           <h2 className="text-4xl md:text-6xl mb-4">
             <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-              What We Do
+              {language === 'ar' ? 'ماذا نقدم' : 'What We Do'}
             </span>
           </h2>
-          <p className="text-white/70 text-lg max-w-2xl mx-auto">
-            End-to-end influencer marketing solutions designed to amplify your brand
+          <p className={`text-white/70 text-lg max-w-2xl mx-auto ${isRTL ? 'font-arabic' : ''}`}>
+            {language === 'ar' 
+              ? 'حلول تسويق شاملة عبر المؤثرين مصممة لتعزيز علامتك التجارية'
+              : 'End-to-end influencer marketing solutions designed to amplify your brand'}
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => {
             const Icon = service.icon;
+            // Fallback for descriptions if not in context yet
+            const title = language === 'ar' 
+                ? (service.key === 'growth' ? 'تحليلات النمو' : service.key === 'roi' ? 'تحسين العائد' : service.key === 'rapid' ? 'تنفيذ سريع' : service.key === 'safety' ? 'أمان العلامة التجارية' : t(`serviceList.${service.key}`))
+                : (service.key === 'growth' ? 'Growth Analytics' : service.key === 'roi' ? 'ROI Optimization' : service.key === 'rapid' ? 'Rapid Execution' : service.key === 'safety' ? 'Brand Safety' : t(`serviceList.${service.key}`));
+            
             return (
               <motion.div
-                key={service.title}
+                key={service.key}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
@@ -106,11 +106,12 @@ export function Services() {
                   </motion.div>
 
                   {/* Content */}
-                  <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-pink-400 group-hover:bg-clip-text transition-all">
-                    {service.title}
+                  <h3 className={`text-xl font-semibold text-white mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-pink-400 group-hover:bg-clip-text transition-all ${isRTL ? 'font-arabic' : ''}`}>
+                    {title}
                   </h3>
-                  <p className="text-white/60 leading-relaxed">
-                    {service.description}
+                  <p className={`text-white/60 leading-relaxed ${isRTL ? 'font-arabic' : ''}`}>
+                     {/* Simple mapping for descriptions since they aren't in the main context file yet */}
+                     {language === 'ar' ? 'استراتيجيات تعتمد على البيانات ومصممة خصيصًا لأهداف علامتك التجارية.' : 'Data-driven strategies tailored to your brand goals and target audience.'}
                   </p>
 
                   {/* Hover Glow Effect */}
@@ -132,20 +133,22 @@ export function Services() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                Why Choose <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Apexlinks</span>?
+              <h3 className={`text-3xl md:text-4xl font-bold text-white mb-6 ${isRTL ? 'font-arabic' : ''}`}>
+                 {language === 'ar' ? 'لماذا تختار' : 'Why Choose'} <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Apexlinks</span>?
               </h3>
-              <p className="text-white/70 text-lg leading-relaxed">
-                We're not just another agency. We're your strategic partner in building authentic connections between brands and influencers that drive measurable results.
+              <p className={`text-white/70 text-lg leading-relaxed ${isRTL ? 'font-arabic' : ''}`}>
+                {language === 'ar' 
+                  ? 'نحن لسنا مجرد وكالة أخرى. نحن شريكك الاستراتيجي في بناء علاقات حقيقية بين العلامات التجارية والمؤثرين لتحقيق نتائج ملموسة.'
+                  : "We're not just another agency. We're your strategic partner in building authentic connections between brands and influencers that drive measurable results."}
               </p>
             </motion.div>
 
             <div className="grid grid-cols-2 gap-6">
               {[
-                { value: '98%', label: 'Client Satisfaction' },
-                { value: '500+', label: 'Active Influencers' },
-                { value: '3.5x', label: 'Avg. ROI Increase' },
-                { value: '24/7', label: 'Support Available' },
+                { value: '98%', label: language === 'ar' ? 'رضا العملاء' : 'Client Satisfaction' },
+                { value: '500+', label: language === 'ar' ? 'مؤثر نشط' : 'Active Influencers' },
+                { value: '3.5x', label: language === 'ar' ? 'زيادة في العائد' : 'Avg. ROI Increase' },
+                { value: '24/7', label: language === 'ar' ? 'دعم متواصل' : 'Support Available' },
               ].map((stat, index) => (
                 <motion.div
                   key={stat.label}
@@ -158,7 +161,7 @@ export function Services() {
                   <div className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
                     {stat.value}
                   </div>
-                  <div className="text-white/60 text-sm">{stat.label}</div>
+                  <div className={`text-white/60 text-sm ${isRTL ? 'font-arabic' : ''}`}>{stat.label}</div>
                 </motion.div>
               ))}
             </div>

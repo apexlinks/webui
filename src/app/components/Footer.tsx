@@ -94,7 +94,7 @@ export function Footer() {
             </ul>
           </motion.div>
 
-          {/* Contact */}
+          {/* Contact & QR Code */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -106,27 +106,39 @@ export function Footer() {
               <li className="flex items-start gap-3 text-white/60">
                 <Mail size={20} className="text-purple-400 flex-shrink-0 mt-1" />
                 <div>
-                  <a href="mailto:hello@apexlinks.com" className="hover:text-purple-400 transition-colors">
-                    hello@apexlinks.com
+                  <a href="mailto:sales@apex-links.net" className="hover:text-purple-400 transition-colors">
+                    sales@apex-links.net
                   </a>
                 </div>
               </li>
               <li className="flex items-start gap-3 text-white/60">
                 <Phone size={20} className="text-pink-400 flex-shrink-0 mt-1" />
                 <div>
-                  <a href="tel:+1234567890" className="hover:text-pink-400 transition-colors">
-                    +1 (234) 567-890
+                  <a href="tel:+966579390788" className="hover:text-pink-400 transition-colors">
+                    +966 57 939 0788
                   </a>
                 </div>
               </li>
               <li className="flex items-start gap-3 text-white/60">
                 <MapPin size={20} className="text-purple-400 flex-shrink-0 mt-1" />
                 <div>
-                  123 Marketing Avenue<br />
-                  New York, NY 10001
+                  Jeddah, Saudi Arabia
                 </div>
               </li>
             </ul>
+
+            {/* QR Code Section */}
+            <div className="mt-8">
+              <p className="text-white/40 text-sm mb-3">Scan to connect:</p>
+              <div className="bg-white p-2 rounded-lg inline-block">
+                {/* Make sure to put your qr-code.png file in the /public folder */}
+                <img 
+                  src="/qr-code.png" 
+                  alt="Scan to connect" 
+                  className="w-32 h-32 object-contain"
+                />
+              </div>
+            </div>
           </motion.div>
         </div>
 

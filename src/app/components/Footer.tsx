@@ -1,8 +1,8 @@
 import { motion } from 'motion/react';
 import { Mail, Phone, MapPin, Instagram, Linkedin, Twitter, Youtube } from 'lucide-react';
 import { useLanguage } from '@/app/context/LanguageContext';
-// IMPORT THE IMAGE DIRECTLY
-import qrCodeImage from './qr-code.png';
+
+// REMOVED THE IMPORT LINE - We don't need it for the public folder
 
 export function Footer() {
   const { t, language } = useLanguage();
@@ -138,8 +138,8 @@ export function Footer() {
               <p className="text-white/40 text-sm mb-3">{t('footer.scan')}</p>
               <div className="bg-white p-2 rounded-lg inline-block">
                 <img 
-                  // USE THE IMPORTED IMAGE VARIABLE
-                  src={qrCodeImage} 
+                  // POINTING DIRECTLY TO PUBLIC FOLDER (Must have the leading slash /)
+                  src="/qr-code.png" 
                   alt="Scan to connect" 
                   className="w-32 h-32 object-contain"
                 />

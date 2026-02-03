@@ -1,8 +1,8 @@
 import { Navigation } from '@/app/components/Navigation';
 import { Hero } from '@/app/components/Hero';
 import { InfluencerShowcase } from '@/app/components/InfluencerShowcase';
-// 1. Import the Partners component
-import Partners from '@/app/components/Partners'; 
+// 1. ADD THIS IMPORT
+import { Partners } from '@/app/components/Partners'; 
 import { Services } from '@/app/components/Services';
 import { Footer } from '@/app/components/Footer';
 import { LanguageProvider } from '@/app/context/LanguageContext';
@@ -17,7 +17,7 @@ export default function App() {
           <Hero />
           <InfluencerShowcase />
           
-          {/* 2. Add the component here */}
+          {/* 2. PLACE THE COMPONENT HERE */}
           <Partners /> 
           
           <Services />

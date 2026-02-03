@@ -1,21 +1,21 @@
 import React from 'react';
-// Import your language context to handle Arabic/English switching
+// This connects to your existing language switcher
 import { useLanguage } from '@/app/context/LanguageContext';
 
 export const Partners = () => {
   const { language } = useLanguage();
 
-  // 1. Define translations
+  // 1. Translation Dictionary
   const content = {
     en: {
       title: "Our Strategic Partners",
     },
     ar: {
-      title: "شركاؤنا في النجاح",
+      title: "شركاء النجاح",
     }
   };
 
-  // 2. Placeholder Logos (Clean, abstract shapes that look professional)
+  // 2. The Logos (Clean, professional placeholders)
   const partners = [
     { name: "Aura", logo: "https://cdn.worldvectorlogo.com/logos/framer-1.svg" },
     { name: "Vibe", logo: "https://cdn.worldvectorlogo.com/logos/v-5.svg" },
@@ -27,15 +27,15 @@ export const Partners = () => {
     <section className="py-12 bg-black border-y border-white/5">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         
-        {/* 3. Title with Arabic typography fix (removes letter spacing for Arabic) */}
+        {/* 3. Title - Checks language to decide spacing */}
         <p className={`
           text-center text-xs font-medium uppercase text-white/40 mb-10
-          ${language === 'ar' ? 'font-cairo tracking-normal text-sm' : 'tracking-[0.3em]'}
+          ${language === 'ar' ? 'font-sans tracking-normal text-sm' : 'tracking-[0.3em]'}
         `}>
           {content[language].title}
         </p>
         
-        {/* 4. Logo Grid */}
+        {/* 4. Logo Grid - Auto-inverts colors to white */}
         <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20">
           {partners.map((partner, index) => (
             <div key={index} className="group">

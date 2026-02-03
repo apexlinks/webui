@@ -1,7 +1,7 @@
 import { Navigation } from '@/app/components/Navigation';
 import { Hero } from '@/app/components/Hero';
 import { InfluencerShowcase } from '@/app/components/InfluencerShowcase';
-// 1. ADD THIS IMPORT
+// 1. IMPORT THE NEW PARTNERS COMPONENT
 import { Partners } from '@/app/components/Partners'; 
 import { Services } from '@/app/components/Services';
 import { Footer } from '@/app/components/Footer';
@@ -17,7 +17,7 @@ export default function App() {
           <Hero />
           <InfluencerShowcase />
           
-          {/* 2. PLACE THE COMPONENT HERE */}
+          {/* 2. DISPLAY IT HERE */}
           <Partners /> 
           
           <Services />

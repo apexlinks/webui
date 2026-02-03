@@ -66,13 +66,13 @@ export const Partners = () => {
           viewport={{ once: true }}
           className="text-center"
         >
-          {/* FONT: Matched to InfluencerShowcase H2 */}
-          <h2 className="text-4xl md:text-6xl mb-4 font-bold">
+          {/* FONT FIXED: Removed font-bold to match Influencers exactly */}
+          <h2 className="text-4xl md:text-6xl mb-4">
             <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
               {content[language].title}
             </span>
           </h2>
-          {/* FONT: Matched to InfluencerShowcase Paragraph with Arabic logic */}
+          {/* SUBTITLE FIXED: text-lg max-w-2xl to match Influencers exactly */}
           <p className={`text-white/70 text-lg max-w-2xl mx-auto ${isRTL ? 'font-arabic' : ''}`}>
              {content[language].subtitle}
           </p>
@@ -101,9 +101,7 @@ export const Partners = () => {
                 </div>
 
                 <div className="absolute bottom-0 left-0 right-0 p-6">
-                  {/* FONT: Matched to Influencer Card H3 */}
                   <h3 className="text-2xl font-bold text-white mb-1">{partner.name}</h3>
-                  {/* FONT: Matched to Influencer Card Category with Arabic logic */}
                   <p className={`text-purple-300 text-sm ${isRTL ? 'font-arabic' : ''}`}>
                     {language === 'ar' ? partner.categoryAr : partner.categoryEn}
                   </p>
@@ -113,7 +111,6 @@ export const Partners = () => {
           ))}
         </div>
 
-        {/* Scroll Hint: Matched exactly to Influencer scroll hint */}
         <motion.div
           initial={{ opacity: 1 }}
           animate={{ opacity: [1, 0.5, 1] }}

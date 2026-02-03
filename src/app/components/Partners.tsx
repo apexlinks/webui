@@ -10,7 +10,7 @@ const Partners = () => {
   ];
 
   return (
-    <section className="py-12 bg-white border-t border-gray-100">
+    <section className="py-12 bg-transparent border-t border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-sm font-semibold uppercase tracking-widest text-gray-400 mb-8">
           Trusted Partners
